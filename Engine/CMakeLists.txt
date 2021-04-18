@@ -22,9 +22,11 @@ target_include_directories(engine PUBLIC 3rd-party/spdlog/include 3rd-party/GLFW
 target_precompile_headers(engine PRIVATE include/pch.h)
 
 # Copy .dll file after build
-add_custom_command(TARGET engine POST_BUILD
-                   COMMAND ${CMAKE_COMMAND} -E copy
-                   ${ENGINE_OUTPUT_DIRECTORY}/libengine.dll
-                   ${GAME_OUTPUT_DIRECTORY})
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    add_custom_command(TARGET engine POST_BUILD
+                       COMMAND ${CMAKE_COMMAND} -E copy
+                       ${ENGINE_OUTPUT_DIRECTORY}/libengine.dll
+                       ${GAME_OUTPUT_DIRECTORY})
+endif()
 
 add_dependencies(engine glfw)
