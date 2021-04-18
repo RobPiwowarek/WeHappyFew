@@ -8,12 +8,23 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${ENGINE_OUTPUT_DIRECTORY}")
 include_directories(include)
 add_compile_definitions(ENGINE_BUILD_DLL)
 
+# Build only GLFW
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+
+add_subdirectory(3rd-party/GLFW)
+
 add_library(engine SHARED src/Core/Application.cpp src/Core/Log.cpp)
 
-target_include_directories(engine PUBLIC 3rd-party/spdlog/include)
+target_link_libraries(engine glfw)
+target_include_directories(engine PUBLIC 3rd-party/spdlog/include 3rd-party/GLFW/include)
 target_precompile_headers(engine PRIVATE include/pch.h)
 
+# Copy .dll file after build
 add_custom_command(TARGET engine POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy
                    ${ENGINE_OUTPUT_DIRECTORY}/libengine.dll
                    ${GAME_OUTPUT_DIRECTORY})
+
+add_dependencies(engine glfw)
