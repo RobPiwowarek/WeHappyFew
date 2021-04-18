@@ -11,6 +11,8 @@ add_compile_definitions(ENGINE_BUILD_DLL)
 add_library(engine SHARED src/Core/Application.cpp src/Core/Log.cpp)
 
 target_include_directories(engine PUBLIC 3rd-party/spdlog/include)
+target_precompile_headers(engine PRIVATE include/pch.h)
+
 add_custom_command(TARGET engine POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy
                    ${ENGINE_OUTPUT_DIRECTORY}/libengine.dll

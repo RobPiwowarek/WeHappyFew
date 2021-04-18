@@ -4,9 +4,8 @@
  *  Github: https://github.com/michal-swiatek
  */
 
+#include "pch.h"
 #include "Core/Application.h"
-
-#include <iostream>
 
 using namespace engine;
 

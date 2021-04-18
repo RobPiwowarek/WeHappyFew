@@ -4,6 +4,7 @@
  *  Github: https://github.com/michal-swiatek
  */
 
+#include "pch.h"
 #include "Core/Log.h"
 
 #ifdef USE_LOGS

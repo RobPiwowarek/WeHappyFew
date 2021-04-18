@@ -9,10 +9,7 @@
 class Game : public engine::Application
 {
 public:
-    Game()
-    {
-
-    }
+    Game() = default;
 };
 
 std::unique_ptr<engine::Application> engine::CreateApplication()
