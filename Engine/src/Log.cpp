@@ -6,16 +6,21 @@
 
 #include "Log.h"
 
+#ifdef USE_LOGS
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/sinks/basic_file_sink.h>
+#endif
 
 namespace engine {
 
+#ifdef USE_LOGS
     std::shared_ptr<spdlog::logger> Log::coreLogger;
     std::shared_ptr<spdlog::logger> Log::clientLogger;
+#endif
 
     void Log::Init()
     {
+#ifdef USE_LOGS
         std::vector<spdlog::sink_ptr> logSinks;
         logSinks.emplace_back(std::make_shared<spdlog::sinks::stdout_color_sink_mt>());
         logSinks.emplace_back(std::make_shared<spdlog::sinks::basic_file_sink_mt>("engine.log", true));
@@ -32,6 +37,7 @@ namespace engine {
         spdlog::register_logger(clientLogger);
         clientLogger->set_level(spdlog::level::trace);
         clientLogger->flush_on(spdlog::level::trace);
+#endif
     }
 
 }

@@ -8,7 +8,10 @@
 #define WEHAPPYFEW_LOG_H
 
 #include <memory>
+
+#ifdef USE_LOGS
 #include <spdlog/spdlog.h>
+#endif
 
 #include "EngineApi.h"
 
@@ -19,17 +22,19 @@ namespace engine {
     public:
         static void Init();
 
+#ifdef USE_LOGS
         static std::shared_ptr<spdlog::logger>& GetCoreLogger() { return coreLogger; }
         static std::shared_ptr<spdlog::logger>& GetClientLogger() { return clientLogger; }
 
     private:
         static std::shared_ptr<spdlog::logger> coreLogger;
         static std::shared_ptr<spdlog::logger> clientLogger;
+#endif
     };
 
 }
 
-#ifdef NDEBUG
+#if defined(NDEBUG) || !defined(USE_LOGS)
     // Core log macros
     #define LOG_CORE_TRACE(...)
     #define LOG_CORE_INFO(...)

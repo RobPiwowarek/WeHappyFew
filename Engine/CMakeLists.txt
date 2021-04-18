@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${ENGINE_OUTPUT_DIRECTORY}")
 
 include_directories(src)
-add_compile_definitions(ENGINE_BUILD_DLL)
+add_compile_definitions(ENGINE_BUILD_DLL USE_LOGS)
 
 add_library(engine SHARED src/Application.cpp src/Log.cpp)
 

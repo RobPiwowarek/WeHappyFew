@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 # Set output directory to project directory
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${GAME_OUTPUT_DIRECTORY}")
 
-install(TARGETS engine RUNTIME)
+#add_compile_definitions(USE_LOGS)
 
 add_executable(game main.cpp)
 
