@@ -10,6 +10,7 @@
 #include <memory>
 
 #include "EngineApi.h"
+#include "Window.h"
 
 namespace engine {
 
@@ -17,6 +18,13 @@ namespace engine {
     {
     public:
         void Run();
+
+    protected:
+        explicit Application(std::string name = "App");
+        virtual ~Application();
+
+    private:
+        std::unique_ptr<Window> window;
     };
 
     std::unique_ptr<Application> CreateApplication();
