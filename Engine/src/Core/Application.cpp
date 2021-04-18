@@ -4,7 +4,7 @@
  *  Github: https://github.com/michal-swiatek
  */
 
-#include "Application.h"
+#include "Core/Application.h"
 
 #include <iostream>
 

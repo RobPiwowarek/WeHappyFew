@@ -4,7 +4,7 @@
  *  Github: https://github.com/michal-swiatek
  */
 
-#include "Log.h"
+#include "Core/Log.h"
 
 #ifdef USE_LOGS
 #include <spdlog/sinks/stdout_color_sinks.h>

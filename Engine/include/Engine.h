@@ -7,9 +7,9 @@
 #ifndef WEHAPPYFEW_ENGINE_H
 #define WEHAPPYFEW_ENGINE_H
 
-#include "../src/Application.h"
-#include "../src/Log.h"
+#include "Core/Application.h"
+#include "Core/Log.h"
 
-#include "../src/EntryPoint.h"
+#include "../src/Core/EntryPoint.h"
 
 #endif //WEHAPPYFEW_ENGINE_H
