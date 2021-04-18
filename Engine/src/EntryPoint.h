@@ -13,8 +13,9 @@ extern std::unique_ptr<engine::Application> engine::CreateApplication();
 
 int main(int argc, char** argv)
 {
-    auto app = engine::CreateApplication();
+    engine::Log::Init();
 
+    auto app = engine::CreateApplication();
     app->Run();
 
     return 0;

@@ -8,6 +8,12 @@
 
 class Game : public engine::Application
 {
+public:
+    Game()
+    {
+        LOG_INFO("Hello world");
+        LOG_WARN("This is a warning");
+    }
 };
 
 std::unique_ptr<engine::Application> engine::CreateApplication()

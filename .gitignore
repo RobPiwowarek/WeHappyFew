@@ -30,3 +30,11 @@
 *.exe
 *.out
 *.app
+
+# Logs
+*.log
+
+# 3rd party
+/3rd/party/
+/Game/3rd-party/
+/Engine/3rd-party/
