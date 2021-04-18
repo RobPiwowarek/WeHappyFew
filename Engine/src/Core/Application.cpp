@@ -16,14 +16,12 @@ void Application::Run()
 {
     std::cout << "Hello world" << std::endl;
 
-    GLFWwindow* window;
-
     /* Initialize the library */
     if (!glfwInit())
         exit(-1);
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
