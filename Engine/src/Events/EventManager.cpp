@@ -4,6 +4,7 @@
  *  Github: https://github.com/michal-swiatek
  */
 
+#include "pch.h"
 #include "Events/EventManager.h"
 
 namespace engine {

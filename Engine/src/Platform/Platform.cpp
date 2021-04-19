@@ -2,6 +2,7 @@
 // Created by swiat on 19.04.2021.
 //
 
+#include "pch.h"
 #include "Platform/Platform.h"
 
 #include "Platform/Windows/WindowsPlatform.h"

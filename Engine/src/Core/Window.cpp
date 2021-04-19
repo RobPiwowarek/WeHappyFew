@@ -4,9 +4,8 @@
  *  Github: https://github.com/michal-swiatek
  */
 
+#include "pch.h"
 #include "Core/Window.h"
-
-#include <utility>
 
 engine::WindowProperties::WindowProperties(std::string title,
                                            uint32_t width,
