@@ -20,11 +20,10 @@ namespace engine {
 
         platform = DetectPlatform();
 
-        window = std::move(platform->CreateWindow(WindowProperties(name)));
+        window = std::move(platform->CreateNewWindow(WindowProperties(name)));
+        window->SetEventCallback([this](Event& e){ this->OnEvent(e); });
 
         eventManager = std::make_unique<EventManager>();
-//        window->SetEventCallback([this](Event& e) { eventManager->OnEvent(e); });
-        window->SetEventCallback([this](Event& e){ this->OnEvent(e); });
     }
 
     Application::~Application() {}

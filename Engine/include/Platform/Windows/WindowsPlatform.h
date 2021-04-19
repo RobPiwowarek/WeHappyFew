@@ -15,7 +15,7 @@ namespace engine {
     class ENGINE_API WindowsPlatform : public Platform
     {
     public:
-        std::unique_ptr<Window> CreateWindow(WindowProperties properties) override;
+        std::unique_ptr<Window> CreateNewWindow(WindowProperties properties) override;
     };
 
 }

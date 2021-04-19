@@ -16,7 +16,7 @@ namespace engine {
     class ENGINE_API Platform
     {
     public:
-        virtual std::unique_ptr<Window> CreateWindow(WindowProperties properties) = 0;
+        virtual std::unique_ptr<Window> CreateNewWindow(WindowProperties properties) = 0;
     };
 
     std::unique_ptr<Platform> DetectPlatform();
