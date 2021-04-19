@@ -13,11 +13,13 @@ set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
+add_subdirectory(3rd-party/spdlog)
 add_subdirectory(3rd-party/GLFW)
 
 add_library(engine SHARED src/Core/Application.cpp src/Core/Log.cpp src/Core/Window.cpp src/Platform/GlfwWindow.cpp src/Platform/Windows/WindowsPlatform.cpp src/Platform/Platform.cpp src/Events/EventManager.cpp)
 
-target_link_libraries(engine glfw)
+target_link_libraries(engine glfw spdlog)
+
 target_include_directories(engine PUBLIC 3rd-party/spdlog/include 3rd-party/GLFW/include)
 target_precompile_headers(engine PRIVATE include/pch.h)
 
@@ -27,6 +29,12 @@ if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
                        COMMAND ${CMAKE_COMMAND} -E copy
                        ${ENGINE_OUTPUT_DIRECTORY}/libengine.dll
                        ${GAME_OUTPUT_DIRECTORY})
+elseif(MSVC)
+    add_custom_command(TARGET engine POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            ${ENGINE_OUTPUT_DIRECTORY}/engine.dll
+            ${GAME_OUTPUT_DIRECTORY})
 endif()
 
+add_dependencies(engine spdlog)
 add_dependencies(engine glfw)
