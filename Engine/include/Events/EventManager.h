@@ -24,7 +24,7 @@ namespace engine {
         EventManager();
         ~EventManager();
 
-        void OnEvent(Event& event);
+        void ReceiveEvent(Event& event);
         void DispatchEvents();
 
     private:

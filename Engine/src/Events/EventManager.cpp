@@ -4,7 +4,6 @@
  *  Github: https://github.com/michal-swiatek
  */
 
-#include "pch.h"
 #include "Events/EventManager.h"
 
 namespace engine {
@@ -20,7 +19,7 @@ namespace engine {
         CLearEvents();
     }
 
-    void EventManager::OnEvent(Event &event)
+    void EventManager::ReceiveEvent(Event &event)
     {
         events.push_back(event.Clone());
     }

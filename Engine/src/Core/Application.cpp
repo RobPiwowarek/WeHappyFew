@@ -9,8 +9,6 @@
 
 namespace engine {
 
-    using namespace std::placeholders;
-
     Application* Application::instance = nullptr;
 
     Application::Application(std::string name)
@@ -20,7 +18,7 @@ namespace engine {
 
         platform = DetectPlatform();
 
-        window = std::move(platform->CreateNewWindow(WindowProperties(name)));
+        window = platform->CreateNewWindow(WindowProperties(std::move(name)));
         window->SetEventCallback([this](Event& e){ this->OnEvent(e); });
 
         eventManager = std::make_unique<EventManager>();
@@ -30,12 +28,14 @@ namespace engine {
 
     void Application::OnEvent(Event &event)
     {
+        LOG_CORE_TRACE("{0}", event.ToString());
+
         auto handler = EventHandler(event);
 
         handler.Handle<WindowCloseEvent>([this](auto& e){ return this->OnWindowClose(e); });
         handler.Handle<WindowResizeEvent>([this](auto& e){ return this->OnWindowResize(e); });
 
-        eventManager->OnEvent(event);
+        eventManager->ReceiveEvent(event);
     }
 
     void Application::Close()

@@ -6,6 +6,8 @@
 
 #include "Core/Window.h"
 
+#include <utility>
+
 engine::WindowProperties::WindowProperties(std::string title,
                                            uint32_t width,
                                            uint32_t height,
@@ -15,4 +17,4 @@ engine::WindowProperties::WindowProperties(std::string title,
                                            title(std::move(title)), width(width), height(height),
                                            refreshRate(refreshRate), fullscreen(fullscreen), vsync(vsync) {}
 
-engine::Window::Window(WindowProperties properties) : properties(std::move(properties)) {}
+engine::Window::Window(WindowProperties  properties) : properties(std::move(properties)) {}

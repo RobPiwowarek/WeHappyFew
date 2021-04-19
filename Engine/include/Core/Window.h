@@ -19,9 +19,11 @@ namespace engine {
     struct ENGINE_API WindowProperties
     {
         std::string title;
+
         uint32_t width;
         uint32_t height;
         uint32_t refreshRate;
+
         bool fullscreen;
         bool vsync;
 

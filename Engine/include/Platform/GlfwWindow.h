@@ -2,6 +2,8 @@
  *  Created by michal-swiatek on 18.04.2021.
  *
  *  Github: https://github.com/michal-swiatek
+ *
+ *  From Cherno game engine series: https://www.youtube.com/playlist?list=PLlrATfBNZ98dC-V-N3m0Go4deliWHPFwT
  */
 
 #ifndef WEHAPPYFEW_GLFWWINDOW_H
@@ -24,7 +26,7 @@ namespace engine {
         void SetFullScreen(bool fullscreen) override;
         void SetVSync(bool vsync) override;
 
-        inline void SetEventCallback(const EventCallback &callback) override { eventCallback = callback; }
+        inline void SetEventCallback(const EventCallback &callback) override { windowData.eventCallback = callback; }
 
     private:
         void Init();
@@ -34,9 +36,18 @@ namespace engine {
 
     private:
         GLFWwindow* window = nullptr;
-        EventCallback eventCallback;
 
         static bool initialized;
+
+        struct WindowData
+        {
+            EventCallback eventCallback;
+            WindowProperties& properties;
+
+            explicit WindowData(WindowProperties& properties) : properties(properties) {}
+        };
+
+        WindowData windowData;
     };
 
 }
