@@ -13,4 +13,8 @@
     #define ENGINE_API __declspec(dllimport)
 #endif
 
+#define BIT(x) (1 << x)
+
+#define BIND_EVENT_FUNCTION(fn) [this](auto&&... args) -> decltype(auto) { return this->fn(std::forward<decltype(args)>(args)...); }
+
 #endif //WEHAPPYFEW_ENGINEAPI_H

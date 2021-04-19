@@ -15,7 +15,7 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 add_subdirectory(3rd-party/GLFW)
 
-add_library(engine SHARED src/Core/Application.cpp src/Core/Log.cpp src/Core/Window.cpp src/Platform/GlfwWindow.cpp src/Platform/Windows/WindowsPlatform.cpp src/Platform/Platform.cpp)
+add_library(engine SHARED src/Core/Application.cpp src/Core/Log.cpp src/Core/Window.cpp src/Platform/GlfwWindow.cpp src/Platform/Windows/WindowsPlatform.cpp src/Platform/Platform.cpp src/Events/EventManager.cpp)
 
 target_link_libraries(engine glfw)
 target_include_directories(engine PUBLIC 3rd-party/spdlog/include 3rd-party/GLFW/include)

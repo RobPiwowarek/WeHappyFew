@@ -7,6 +7,8 @@
 #include "pch.h"
 #include "Platform/GlfwWindow.h"
 
+#include "Events/ApplicationEvents.h"
+
 namespace engine {
 
     bool GlfwWindow::initialized = false;
@@ -61,6 +63,20 @@ namespace engine {
         SetFullScreen(properties.fullscreen);
 
         glfwMakeContextCurrent(window);
+
+        glfwSetWindowUserPointer(window, &eventCallback);
+
+        SetCallbacks();
+    }
+
+    void GlfwWindow::SetCallbacks()
+    {
+        glfwSetWindowCloseCallback(window, [](GLFWwindow* window)
+        {
+            auto callback = *(EventCallback*)glfwGetWindowUserPointer(window);
+            WindowCloseEvent event;
+            callback(event);
+        });
     }
 
     void GlfwWindow::Quit()

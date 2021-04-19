@@ -9,9 +9,11 @@
 
 #include <memory>
 
-#include "EngineApi.h"
-#include "Window.h"
+#include "Core/EngineApi.h"
+#include "Core/Window.h"
+#include "Events/EventManager.h"
 #include "Platform/Platform.h"
+#include "Events/ApplicationEvents.h"
 
 int main(int argc, char** argv);
 
@@ -22,6 +24,8 @@ namespace engine {
     public:
         virtual ~Application();
 
+        void OnEvent(Event& event);
+
         void Close();
 
     protected:
@@ -30,10 +34,15 @@ namespace engine {
     private:
         void Run();
 
+        bool OnWindowClose(WindowCloseEvent& e);
+        bool OnWindowResize(WindowResizeEvent& e);
+
         bool running = true;
 
         std::unique_ptr<Platform> platform;
         std::unique_ptr<Window> window;
+
+        std::unique_ptr<EventManager> eventManager;
 
         static Application* instance;
 

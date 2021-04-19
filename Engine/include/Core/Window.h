@@ -9,8 +9,10 @@
 
 #include <string>
 #include <memory>
+#include <functional>
 
 #include "EngineApi.h"
+#include "Events/Event.h"
 
 namespace engine {
 
@@ -33,6 +35,9 @@ namespace engine {
 
     class ENGINE_API Window
     {
+    protected:
+        using EventCallback = std::function<void(Event&)>;
+
     public:
         virtual ~Window() = default;
 
@@ -41,6 +46,8 @@ namespace engine {
         //  Set properties
         virtual void SetFullScreen(bool fullscreen) = 0;
         virtual void SetVSync(bool vsync) = 0;
+
+        virtual void SetEventCallback(const EventCallback& callback) = 0;
 
         //  Get window properties
         [[nodiscard]] inline const WindowProperties& GetProperties() const { return properties; }

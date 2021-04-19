@@ -8,9 +8,11 @@
 
 #include "Platform/GlfwWindow.h"
 
-using namespace engine;
+namespace engine {
 
-std::unique_ptr<Window> WindowsPlatform::CreateWindow(WindowProperties properties)
-{
-    return std::make_unique<GlfwWindow>(std::move(properties));
+    std::unique_ptr<Window> WindowsPlatform::CreateWindow(WindowProperties properties)
+    {
+            return std::make_unique<GlfwWindow>(std::move(properties));
+    }
+
 }
