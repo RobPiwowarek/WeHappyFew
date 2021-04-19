@@ -27,12 +27,12 @@ target_precompile_headers(engine PRIVATE include/pch.h)
 if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
     add_custom_command(TARGET engine POST_BUILD
                        COMMAND ${CMAKE_COMMAND} -E copy
-                       ${ENGINE_OUTPUT_DIRECTORY}/libengine.dll
+                       ${ENGINE_OUTPUT_DIRECTORY}libengine.dll
                        ${GAME_OUTPUT_DIRECTORY})
 elseif(MSVC)
     add_custom_command(TARGET engine POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy
-            ${ENGINE_OUTPUT_DIRECTORY}/engine.dll
+            ${ENGINE_OUTPUT_DIRECTORY}engine.dll
             ${GAME_OUTPUT_DIRECTORY})
 endif()
 
