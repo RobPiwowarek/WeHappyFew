@@ -19,6 +19,8 @@ namespace engine {
         explicit GlfwWindow(WindowProperties properties);
         ~GlfwWindow() override;
 
+        void Update() override;
+
         void SetFullScreen(bool fullscreen) override;
         void SetVSync(bool vsync) override;
 

@@ -11,20 +11,34 @@
 
 #include "EngineApi.h"
 #include "Window.h"
+#include "Platform/Platform.h"
+
+int main(int argc, char** argv);
 
 namespace engine {
 
     class ENGINE_API Application
     {
     public:
-        void Run();
+        virtual ~Application();
+
+        void Close();
 
     protected:
         explicit Application(std::string name = "App");
-        virtual ~Application();
 
     private:
+        void Run();
+
+        bool running = true;
+
+        std::unique_ptr<Platform> platform;
         std::unique_ptr<Window> window;
+
+        static Application* instance;
+
+        //  Allows EntryPoint to call Run()
+        friend int ::main(int argc, char** argv);
     };
 
     std::unique_ptr<Application> CreateApplication();

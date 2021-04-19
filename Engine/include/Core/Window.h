@@ -36,6 +36,8 @@ namespace engine {
     public:
         virtual ~Window() = default;
 
+        virtual void Update() = 0;
+
         //  Set properties
         virtual void SetFullScreen(bool fullscreen) = 0;
         virtual void SetVSync(bool vsync) = 0;

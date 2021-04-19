@@ -7,20 +7,33 @@
 #include "pch.h"
 #include "Core/Application.h"
 
-#include "Platform/Platform.h"
+namespace engine {
 
-using namespace engine;
+    Application* Application::instance = nullptr;
 
-Application::Application(std::string name)
-{
-    auto platform = DetectPlatform();
+    Application::Application(std::string name)
+    {
+        assert(!instance && "Application already exists");
+        instance = this;
 
-    window = platform->CreateWindow(WindowProperties(std::move(name)));
-}
+        platform = DetectPlatform();
 
-Application::~Application() {}
+        window = platform->CreateWindow(WindowProperties(std::move(name)));
+    }
 
-void Application::Run()
-{
+    Application::~Application() {}
+
+    void Application::Close()
+    {
+        running = false;
+    }
+
+    void Application::Run()
+    {
+        while (running)
+        {
+            window->Update();
+        }
+    }
 
 }
