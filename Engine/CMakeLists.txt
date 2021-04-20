@@ -17,7 +17,7 @@ add_subdirectory(3rd-party/spdlog)
 add_subdirectory(3rd-party/GLFW)
 add_subdirectory(3rd-party/glad)
 
-add_library(engine SHARED src/Core/Application.cpp src/Core/Log.cpp src/Core/Window.cpp src/Platform/GlfwWindow.cpp src/Platform/Windows/WindowsPlatform.cpp src/Platform/Platform.cpp src/Events/EventManager.cpp src/Core/Layer.cpp src/Core/LayerStack.cpp)
+add_library(engine SHARED src/Core/Application.cpp src/Core/Log.cpp src/Core/Window.cpp src/Platform/GlfwWindow.cpp src/Platform/Windows/WindowsPlatform.cpp src/Platform/Platform.cpp src/Events/EventManager.cpp src/Core/Layer.cpp src/Core/LayerStack.cpp src/Platform/GlfwInput.cpp)
 
 target_link_libraries(engine glfw spdlog glad)
 

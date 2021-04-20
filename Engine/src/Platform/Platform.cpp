@@ -1,6 +1,8 @@
-//
-// Created by swiat on 19.04.2021.
-//
+/*
+ *  Created by michal-swiatek on 19.04.2021.
+ *
+ *  Github: https://github.com/michal-swiatek
+ */
 
 #include "pch.h"
 #include "Platform/Platform.h"
