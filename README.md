@@ -11,6 +11,7 @@ After cloning to build project create new subdirectory build, enter it and run c
 2. cd build
 3. cmake ..
 
+Alternatively run setup.bat - simple setup batch script that performs above actions.
+
 Inside build will be generated solution files, setup Game as starting project and run it. <br />
-On Visual Studio you'll have to manually move generated engine.dll file. <br />
-Go to root/Engine/bin/CONFIG/ and copy engine.dll into root/Game/bin/CONFIG/
+On VisualStudio first build might fail, ignore it - reopen VisualStudio again and project should work fine.
