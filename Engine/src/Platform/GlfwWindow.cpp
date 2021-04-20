@@ -41,16 +41,22 @@ namespace engine {
             glfwSetErrorCallback(GlfwErrorCallback);
         }
 
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
         window = glfwCreateWindow(properties.width, properties.height, properties.title.c_str(), nullptr, nullptr);
         assert(window && "Unable to create window");
 
-        SetVSync(properties.vsync);
-        SetFullScreen(properties.fullscreen);
+        glfwMakeContextCurrent(window);
 
         glfwSetWindowUserPointer(window, &windowData);
         SetCallbacks();
 
-        glfwMakeContextCurrent(window);
+        gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+
+        SetVSync(properties.vsync);
+        SetFullScreen(properties.fullscreen);
     }
 
     void GlfwWindow::SetCallbacks()
@@ -159,7 +165,11 @@ namespace engine {
 
     void GlfwWindow::Update()
     {
+        glClearColor(0, 0, 0.5, 0);
+        glClear(GL_COLOR_BUFFER_BIT);
+
         glfwPollEvents();
+        glfwSwapBuffers(window);
     }
 
     void GlfwWindow::SetFullScreen(bool fullscreen)
