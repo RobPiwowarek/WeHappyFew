@@ -15,4 +15,6 @@
 
 #include "Core/Log.h"
 
+#include <windows.h>
+
 #endif //WEHAPPYFEW_PCH_H

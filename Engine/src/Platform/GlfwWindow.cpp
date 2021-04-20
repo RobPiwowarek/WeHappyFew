@@ -42,7 +42,7 @@ namespace engine {
         }
 
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
         window = glfwCreateWindow(properties.width, properties.height, properties.title.c_str(), nullptr, nullptr);
@@ -166,9 +166,6 @@ namespace engine {
 
     void GlfwWindow::Update()
     {
-        glClearColor(0, 0, 0.5, 0);
-        glClear(GL_COLOR_BUFFER_BIT);
-
         glfwPollEvents();
         glfwSwapBuffers(window);
     }

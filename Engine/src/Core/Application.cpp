@@ -7,6 +7,8 @@
 #include "pch.h"
 #include "Core/Application.h"
 
+#include <glad/glad.h>
+
 namespace engine {
 
     Application* Application::instance = nullptr;
@@ -22,14 +24,17 @@ namespace engine {
         window->SetEventCallback([this](Event& e){ this->OnEvent(e); });
 
         eventManager = std::make_unique<EventManager>();
+
+        imGuiLayer = new ImGuiLayer();
+        PushOverlay(imGuiLayer);
     }
 
     Application::~Application() {}
 
     void Application::OnEvent(Event &event)
     {
-        if (!event.IsInCategory(EventCategoryMouse))
-            LOG_CORE_TRACE("{0}", event.ToString());
+//        if (!event.IsInCategory(EventCategoryMouse))
+//            LOG_CORE_TRACE("{0}", event.ToString());
 
         auto handler = EventHandler(event);
 
@@ -44,6 +49,17 @@ namespace engine {
     {
         while (running)
         {
+            glClearColor(0, 0, 0.5, 0);
+            glClear(GL_COLOR_BUFFER_BIT);
+
+            for (auto* layer : layerStack)
+                layer->OnUpdate();
+
+            imGuiLayer->Begin();
+            for (auto* layer : layerStack)
+                layer->OnImGuiRender();
+            imGuiLayer->End();
+
             window->Update();
 
             eventManager->DispatchEvents(layerStack);
@@ -57,7 +73,7 @@ namespace engine {
 
     void Application::PushOverlay(Layer *overlay)
     {
-        layerStack.PopOverlay(overlay);
+        layerStack.PushOverlay(overlay);
     }
 
     void Application::Close()

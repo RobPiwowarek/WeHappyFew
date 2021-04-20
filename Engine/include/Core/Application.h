@@ -17,6 +17,7 @@
 #include "Platform/Platform.h"
 #include "Core/EngineApi.h"
 
+#include "ImGui/ImGuiLayer.h"
 
 int main(int argc, char** argv);
 
@@ -53,6 +54,7 @@ namespace engine {
         std::unique_ptr<Window> window;
 
         LayerStack layerStack;
+        ImGuiLayer* imGuiLayer;
         std::unique_ptr<EventManager> eventManager;
 
         static Application* instance;
