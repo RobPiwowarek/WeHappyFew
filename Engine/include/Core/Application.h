@@ -27,18 +27,22 @@ namespace engine {
     public:
         virtual ~Application();
 
-        void OnEvent(Event& event);
-
         void PushLayer(Layer* layer);
         void PushOverlay(Layer* overlay);
 
         void Close();
+
+        [[nodiscard]] inline Window& GetWindow() const { return *window; }
+
+        [[nodiscard]] static inline Application& GetInstance() { return *instance; }
 
     protected:
         explicit Application(std::string name = "App");
 
     private:
         void Run();
+
+        void OnEvent(Event& event);
 
         bool OnWindowClose(WindowCloseEvent& e);
         bool OnWindowResize(WindowResizeEvent& e);

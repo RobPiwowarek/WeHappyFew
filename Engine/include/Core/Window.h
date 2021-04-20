@@ -45,19 +45,20 @@ namespace engine {
 
         virtual void Update() = 0;
 
+        virtual void* GetNativeWindow() = 0;
+
         //  Set properties
         virtual void SetFullScreen(bool fullscreen) = 0;
         virtual void SetVSync(bool vsync) = 0;
 
-        virtual void SetEventCallback(const EventCallback& callback) = 0;
-
-        //  Get window properties
         [[nodiscard]] inline const WindowProperties& GetProperties() const { return properties; }
+        inline void SetEventCallback(const EventCallback& callback) { eventCallback = callback; }
 
     protected:
         explicit Window(WindowProperties properties);
 
         WindowProperties properties;
+        EventCallback eventCallback;
     };
 
 }

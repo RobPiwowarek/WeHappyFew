@@ -34,6 +34,8 @@ namespace engine {
         Event& event;
     };
 
+    #define BIND_EVENT_CALLBACK(callback) [this](auto&&... args) -> decltype(auto) { return this->callback(std::forward<decltype(args)>(args)...); }
+
 }
 
 #endif //WEHAPPYFEW_EVENTHANDLER_H

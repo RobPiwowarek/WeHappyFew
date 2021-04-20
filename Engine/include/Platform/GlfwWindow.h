@@ -27,7 +27,7 @@ namespace engine {
         void SetFullScreen(bool fullscreen) override;
         void SetVSync(bool vsync) override;
 
-        inline void SetEventCallback(const EventCallback &callback) override { windowData.eventCallback = callback; }
+        void* GetNativeWindow() override { return window; }
 
     private:
         void Init();
@@ -35,20 +35,9 @@ namespace engine {
 
         void SetCallbacks();
 
-    private:
         GLFWwindow* window = nullptr;
 
         static bool initialized;
-
-        struct WindowData
-        {
-            EventCallback eventCallback;
-            WindowProperties& properties;
-
-            explicit WindowData(WindowProperties& properties) : properties(properties) {}
-        };
-
-        WindowData windowData;
     };
 
 }

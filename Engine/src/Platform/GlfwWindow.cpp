@@ -22,7 +22,7 @@ namespace engine {
         LOG_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
     }
 
-    GlfwWindow::GlfwWindow(WindowProperties properties) : Window(std::move(properties)), windowData(this->properties)
+    GlfwWindow::GlfwWindow(WindowProperties properties) : Window(std::move(properties))
     {
         Init();
     }
@@ -50,57 +50,58 @@ namespace engine {
 
         glfwMakeContextCurrent(window);
 
-        glfwSetWindowUserPointer(window, &windowData);
+        SetVSync(properties.vsync);
+        SetFullScreen(properties.fullscreen);
+
+//        glfwSetWindowUserPointer(window, &windowData);
+        glfwSetWindowUserPointer(window, this);
         SetCallbacks();
 
         gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-
-        SetVSync(properties.vsync);
-        SetFullScreen(properties.fullscreen);
     }
 
     void GlfwWindow::SetCallbacks()
     {
         glfwSetWindowCloseCallback(window, [](GLFWwindow* windowPtr)
         {
-            auto& data = *(WindowData*)glfwGetWindowUserPointer(windowPtr);
+            auto* win = (GlfwWindow*)glfwGetWindowUserPointer(windowPtr);
 
             WindowCloseEvent event;
-            data.eventCallback(event);
+            win->eventCallback(event);
         });
 
         glfwSetWindowSizeCallback(window, [](GLFWwindow* windowPtr, int width, int height)
         {
-            auto& data = *(WindowData*)glfwGetWindowUserPointer(windowPtr);
-            data.properties.width = width;
-            data.properties.height = height;
+            auto* win = (GlfwWindow*)glfwGetWindowUserPointer(windowPtr);
+            win->properties.width = width;
+            win->properties.height = height;
 
             WindowResizeEvent event(width, height);
-            data.eventCallback(event);
+            win->eventCallback(event);
         });
 
         glfwSetKeyCallback(window, [](GLFWwindow* windowPtr, int key, int scancode, int action, int mods)
         {
-            auto& data = *(WindowData*)glfwGetWindowUserPointer(windowPtr);
+            auto* win = (GlfwWindow*)glfwGetWindowUserPointer(windowPtr);
 
             switch (action)
             {
                 case GLFW_PRESS:
                 {
                     KeyPressedEvent event(static_cast<const KeyCode>(key), 0);
-                    data.eventCallback(event);
+                    win->eventCallback(event);
                     break;
                 }
                 case GLFW_RELEASE:
                 {
                     KeyReleasedEvent event(static_cast<const KeyCode>(key));
-                    data.eventCallback(event);
+                    win->eventCallback(event);
                     break;
                 }
                 case GLFW_REPEAT:
                 {
                     KeyPressedEvent event(static_cast<const KeyCode>(key), 1);
-                    data.eventCallback(event);
+                    win->eventCallback(event);
                     break;
                 }
                 default:
@@ -108,30 +109,30 @@ namespace engine {
             }
         });
 
-        glfwSetCharCallback(window, [](GLFWwindow* windowPtr, unsigned int keycode)
+        glfwSetCharCallback(window, [](GLFWwindow* callbackWindow, unsigned int keycode)
         {
-            auto& data = *(WindowData*)glfwGetWindowUserPointer(windowPtr);
+            auto* windowPtr = (GlfwWindow*)glfwGetWindowUserPointer(callbackWindow);
 
             KeyTypedEvent event(static_cast<const KeyCode>(keycode));
-            data.eventCallback(event);
+            windowPtr->eventCallback(event);
         });
 
         glfwSetMouseButtonCallback(window, [](GLFWwindow* windowPtr, int button, int action, int mods)
         {
-            auto& data = *(WindowData*)glfwGetWindowUserPointer(windowPtr);
+            auto* win = (GlfwWindow*)glfwGetWindowUserPointer(windowPtr);
 
             switch (action)
             {
                 case GLFW_PRESS:
                 {
                     MouseButtonPressedEvent event(static_cast<const MouseCode>(button));
-                    data.eventCallback(event);
+                    win->eventCallback(event);
                     break;
                 }
                 case GLFW_RELEASE:
                 {
                     MouseButtonReleasedEvent event(static_cast<const MouseCode>(button));
-                    data.eventCallback(event);
+                    win->eventCallback(event);
                     break;
                 }
             }
@@ -139,18 +140,18 @@ namespace engine {
 
         glfwSetScrollCallback(window, [](GLFWwindow* windowPtr, double xOffset, double yOffset)
         {
-            auto& data = *(WindowData*)glfwGetWindowUserPointer(windowPtr);
+            auto* win = (GlfwWindow*)glfwGetWindowUserPointer(windowPtr);
 
             MouseScrolledEvent event((float)xOffset, (float)yOffset);
-            data.eventCallback(event);
+            win->eventCallback(event);
         });
 
         glfwSetCursorPosCallback(window, [](GLFWwindow* windowPtr, double xPos, double yPos)
         {
-            auto& data = *(WindowData*)glfwGetWindowUserPointer(windowPtr);
+            auto* win = (GlfwWindow*)glfwGetWindowUserPointer(windowPtr);
 
             MouseMovedEvent event((float)xPos, (float)yPos);
-            data.eventCallback(event);
+            win->eventCallback(event);
         });
     }
 

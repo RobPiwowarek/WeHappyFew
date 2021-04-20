@@ -33,8 +33,8 @@ namespace engine {
 
         auto handler = EventHandler(event);
 
-        handler.Handle<WindowCloseEvent>([this](auto& e){ return this->OnWindowClose(e); });
-        handler.Handle<WindowResizeEvent>([this](auto& e){ return this->OnWindowResize(e); });
+        handler.Handle<WindowCloseEvent>(BIND_EVENT_CALLBACK(Application::OnWindowClose));
+        handler.Handle<WindowResizeEvent>(BIND_EVENT_CALLBACK(Application::OnWindowResize));
 
         if (!event.handled)
             eventManager->BufferEvent(event);
