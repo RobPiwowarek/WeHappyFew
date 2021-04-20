@@ -20,21 +20,27 @@ namespace engine {
         CLearEvents();
     }
 
-    void EventManager::ReceiveEvent(Event &event)
+    void EventManager::BufferEvent(Event &event)
     {
         events.push_back(event.Clone());
     }
 
-    void EventManager::DispatchEvents()
+    void EventManager::DispatchEvents(LayerStack& layerStack)
     {
-        CLearEvents();
-    }
+        //  Dispatch all events across supplied layers
+        for (auto* event : events)
+        {
+            for (auto it = layerStack.rbegin(); it != layerStack.rend(); ++it)
+            {
+                (*it)->OnEvent(*event);
 
-    void EventManager::RemoveEvent(Event *&event)
-    {
-        delete event;   //  EventManager owns cloned events
-        std::swap(event, events.back());
-        events.pop_back();
+                if (event->handled)
+                    break;
+            }
+        }
+
+        //  Unhandled events are ignored
+        CLearEvents();
     }
 
     void EventManager::CLearEvents()

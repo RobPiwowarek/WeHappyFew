@@ -9,11 +9,14 @@
 
 #include <memory>
 
-#include "Core/EngineApi.h"
-#include "Core/Window.h"
+#include "Core/LayerStack.h"
 #include "Events/EventManager.h"
-#include "Platform/Platform.h"
 #include "Events/ApplicationEvents.h"
+
+#include "Core/Window.h"
+#include "Platform/Platform.h"
+#include "Core/EngineApi.h"
+
 
 int main(int argc, char** argv);
 
@@ -25,6 +28,9 @@ namespace engine {
         virtual ~Application();
 
         void OnEvent(Event& event);
+
+        void PushLayer(Layer* layer);
+        void PushOverlay(Layer* overlay);
 
         void Close();
 
@@ -42,6 +48,7 @@ namespace engine {
         std::unique_ptr<Platform> platform;
         std::unique_ptr<Window> window;
 
+        LayerStack layerStack;
         std::unique_ptr<EventManager> eventManager;
 
         static Application* instance;

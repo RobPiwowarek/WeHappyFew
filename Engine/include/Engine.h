@@ -8,6 +8,14 @@
 #define WEHAPPYFEW_ENGINE_H
 
 #include "Core/Application.h"
+#include "Core/Layer.h"
+
+#include "Events/Event.h"
+#include "Events/EventHandler.h"
+#include "Events/KeyEvents.h"
+#include "Events/MouseEvents.h"
+#include "Events/ApplicationEvents.h"
+
 #include "Core/Log.h"
 
 #include "../src/Core/EntryPoint.h"

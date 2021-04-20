@@ -7,13 +7,13 @@
 #ifndef WEHAPPYFEW_EVENTMANAGER_H
 #define WEHAPPYFEW_EVENTMANAGER_H
 
-#include <memory>
 #include <vector>
-#include <functional>
 
-#include "Core/EngineApi.h"
 #include "Events/Event.h"
 #include "Events/EventHandler.h"
+#include "Core/LayerStack.h"
+
+#include "Core/EngineApi.h"
 #include "Memory/LinearAllocator.h"
 
 namespace engine {
@@ -24,11 +24,10 @@ namespace engine {
         EventManager();
         ~EventManager();
 
-        void ReceiveEvent(Event& event);
-        void DispatchEvents();
+        void BufferEvent(Event& event);
+        void DispatchEvents(LayerStack& layerStack);
 
     private:
-        void RemoveEvent(Event*& event);
         void CLearEvents();
 
         std::vector<Event*> events;

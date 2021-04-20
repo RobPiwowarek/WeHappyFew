@@ -28,19 +28,16 @@ namespace engine {
 
     void Application::OnEvent(Event &event)
     {
-        LOG_CORE_TRACE("{0}", event.ToString());
+        if (!event.IsInCategory(EventCategoryMouse))
+            LOG_CORE_TRACE("{0}", event.ToString());
 
         auto handler = EventHandler(event);
 
         handler.Handle<WindowCloseEvent>([this](auto& e){ return this->OnWindowClose(e); });
         handler.Handle<WindowResizeEvent>([this](auto& e){ return this->OnWindowResize(e); });
 
-        eventManager->ReceiveEvent(event);
-    }
-
-    void Application::Close()
-    {
-        running = false;
+        if (!event.handled)
+            eventManager->BufferEvent(event);
     }
 
     void Application::Run()
@@ -49,8 +46,23 @@ namespace engine {
         {
             window->Update();
 
-            eventManager->DispatchEvents();
+            eventManager->DispatchEvents(layerStack);
         }
+    }
+
+    void Application::PushLayer(Layer *layer)
+    {
+        layerStack.PushLayer(layer);
+    }
+
+    void Application::PushOverlay(Layer *overlay)
+    {
+        layerStack.PopOverlay(overlay);
+    }
+
+    void Application::Close()
+    {
+        running = false;
     }
 
     bool Application::OnWindowClose(WindowCloseEvent &e)
