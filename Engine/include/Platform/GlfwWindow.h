@@ -9,6 +9,7 @@
 #ifndef WEHAPPYFEW_GLFWWINDOW_H
 #define WEHAPPYFEW_GLFWWINDOW_H
 
+#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include "Core/Window.h"

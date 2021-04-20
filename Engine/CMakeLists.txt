@@ -15,12 +15,13 @@ set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 add_subdirectory(3rd-party/spdlog)
 add_subdirectory(3rd-party/GLFW)
+add_subdirectory(3rd-party/glad)
 
 add_library(engine SHARED src/Core/Application.cpp src/Core/Log.cpp src/Core/Window.cpp src/Platform/GlfwWindow.cpp src/Platform/Windows/WindowsPlatform.cpp src/Platform/Platform.cpp src/Events/EventManager.cpp src/Core/Layer.cpp src/Core/LayerStack.cpp)
 
-target_link_libraries(engine glfw spdlog)
+target_link_libraries(engine glfw spdlog glad)
 
-target_include_directories(engine PUBLIC 3rd-party/spdlog/include 3rd-party/GLFW/include)
+target_include_directories(engine PUBLIC 3rd-party/spdlog/include 3rd-party/GLFW/include 3rd-party/glad/include)
 target_precompile_headers(engine PRIVATE include/pch.h)
 
 # Copy .dll file after build
@@ -38,3 +39,4 @@ endif()
 
 add_dependencies(engine spdlog)
 add_dependencies(engine glfw)
+add_dependencies(engine glad)

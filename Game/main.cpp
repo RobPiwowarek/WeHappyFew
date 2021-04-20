@@ -27,7 +27,6 @@ public:
     Game()
     {
         PushLayer(new ProxyLayer());
-        PushLayer(new ProxyLayer());
     }
 };
 
