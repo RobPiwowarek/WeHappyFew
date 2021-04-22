@@ -9,6 +9,8 @@
 #include "pch.h"
 #include "Platform/GlfwWindow.h"
 
+#include "Platform/Platform.h"
+
 #include "Events/ApplicationEvents.h"
 #include "Events/KeyEvents.h"
 #include "Events/MouseEvents.h"
@@ -32,6 +34,12 @@ namespace engine {
         Quit();
     }
 
+    void GlfwWindow::SetContext()
+    {
+        context = Platform::Get().CreateGraphicsContext(window);
+        context->Init();
+    }
+
     void GlfwWindow::Init()
     {
         if (!initialized)
@@ -42,22 +50,19 @@ namespace engine {
         }
 
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
         window = glfwCreateWindow(properties.width, properties.height, properties.title.c_str(), nullptr, nullptr);
         assert(window && "Unable to create window");
 
-        glfwMakeContextCurrent(window);
+        SetContext();
 
         SetVSync(properties.vsync);
         SetFullScreen(properties.fullscreen);
 
-//        glfwSetWindowUserPointer(window, &windowData);
         glfwSetWindowUserPointer(window, this);
         SetCallbacks();
-
-        gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
     }
 
     void GlfwWindow::SetCallbacks()
@@ -167,7 +172,7 @@ namespace engine {
     void GlfwWindow::Update()
     {
         glfwPollEvents();
-        glfwSwapBuffers(window);
+        context->SwapBuffers();
     }
 
     void GlfwWindow::SetFullScreen(bool fullscreen)

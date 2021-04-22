@@ -12,6 +12,7 @@
 #include <functional>
 
 #include "EngineApi.h"
+#include "Rendering/GraphicsContext.h"
 #include "Events/Event.h"
 
 namespace engine {
@@ -57,8 +58,12 @@ namespace engine {
     protected:
         explicit Window(WindowProperties properties);
 
+        virtual void SetContext() = 0;
+
         WindowProperties properties;
         EventCallback eventCallback;
+
+        std::unique_ptr<GraphicsContext> context;
     };
 
 }
