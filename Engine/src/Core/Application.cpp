@@ -18,9 +18,10 @@ namespace engine {
         assert(!instance && "Application already exists");
         instance = this;
 
-        platform = DetectPlatform();
+        Platform::DetectPlatform();
+        auto& platform = Platform::Get();
 
-        window = platform->CreateNewWindow(WindowProperties(std::move(name)));
+        window = platform.CreateNewWindow(WindowProperties(std::move(name)));
         window->SetEventCallback([this](Event& e){ this->OnEvent(e); });
 
         eventManager = std::make_unique<EventManager>();
@@ -33,9 +34,6 @@ namespace engine {
 
     void Application::OnEvent(Event &event)
     {
-//        if (!event.IsInCategory(EventCategoryMouse))
-//            LOG_CORE_TRACE("{0}", event.ToString());
-
         auto handler = EventHandler(event);
 
         handler.Handle<WindowCloseEvent>(BIND_EVENT_CALLBACK(Application::OnWindowClose));

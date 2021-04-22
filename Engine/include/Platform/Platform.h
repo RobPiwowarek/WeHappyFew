@@ -10,6 +10,7 @@
 #include <memory>
 
 #include "Core/Window.h"
+#include "Rendering/GraphicsContext.h"
 
 namespace engine {
 
@@ -17,9 +18,14 @@ namespace engine {
     {
     public:
         virtual std::unique_ptr<Window> CreateNewWindow(WindowProperties properties) = 0;
-    };
+        virtual std::unique_ptr<GraphicsContext> CreateGraphicsContext(void* windowHandle) = 0;
 
-    std::unique_ptr<Platform> DetectPlatform();
+        static void DetectPlatform();
+        static Platform& Get();
+
+    private:
+        static std::unique_ptr<Platform> instance;
+    };
 
 }
 

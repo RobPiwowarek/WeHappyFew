@@ -50,7 +50,6 @@ namespace engine {
 
         bool running = true;
 
-        std::unique_ptr<Platform> platform;
         std::unique_ptr<Window> window;
 
         LayerStack layerStack;

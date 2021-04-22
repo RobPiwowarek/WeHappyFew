@@ -9,11 +9,22 @@
 
 #include "Platform/Windows/WindowsPlatform.h"
 
-std::unique_ptr<engine::Platform> engine::DetectPlatform()
-{
+namespace engine {
+
+    std::unique_ptr<Platform> Platform::instance = nullptr;
+
+    void Platform::DetectPlatform()
+    {
 #if defined(WIN32) || defined(WIN64)
-    return std::make_unique<WindowsPlatform>();
+        instance = std::make_unique<WindowsPlatform>();
 #else
-    #error "Platform not suppoerted"
+#error "Platform not suppoerted"
 #endif
+    }
+
+    Platform & Platform::Get()
+    {
+        return *instance;
+    }
+
 }
