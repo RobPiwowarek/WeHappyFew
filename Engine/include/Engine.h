@@ -16,6 +16,10 @@
 #include "Events/MouseEvents.h"
 #include "Events/ApplicationEvents.h"
 
+#include "Input/Input.h"
+#include "Input/KeyCodes.h"
+#include "Input/MouseCodes.h"
+
 #include "Core/Log.h"
 
 #include "../src/Core/EntryPoint.h"
