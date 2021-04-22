@@ -7,8 +7,6 @@
 #include "pch.h"
 #include "Core/Application.h"
 
-#include <glad/glad.h>
-
 namespace engine {
 
     Application* Application::instance = nullptr;
@@ -23,6 +21,8 @@ namespace engine {
 
         window = platform.CreateNewWindow(WindowProperties(std::move(name)));
         window->SetEventCallback([this](Event& e){ this->OnEvent(e); });
+
+        renderer = platform.CreateRenderer();
 
         eventManager = std::make_unique<EventManager>();
 
@@ -47,8 +47,8 @@ namespace engine {
     {
         while (running)
         {
-            glClearColor(0, 0, 0.5, 0);
-            glClear(GL_COLOR_BUFFER_BIT);
+            renderer->SetClearColor({0, 0, 0.4, 0});
+            renderer->Clear();
 
             for (auto* layer : layerStack)
                 layer->OnUpdate();

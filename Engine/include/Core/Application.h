@@ -51,6 +51,7 @@ namespace engine {
         bool running = true;
 
         std::unique_ptr<Window> window;
+        std::unique_ptr<Renderer> renderer;
 
         LayerStack layerStack;
         ImGuiLayer* imGuiLayer;

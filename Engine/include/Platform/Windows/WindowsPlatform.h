@@ -17,6 +17,7 @@ namespace engine {
     public:
         std::unique_ptr<Window> CreateNewWindow(WindowProperties properties) override;
         std::unique_ptr<GraphicsContext> CreateGraphicsContext(void* windowHandle) override;
+        std::unique_ptr<Renderer> CreateRenderer() override;
     };
 
 }
