@@ -28,7 +28,7 @@ target_include_directories(imgui PUBLIC 3rd-party/GLFW/include 3rd-party/glad/in
 # Find packages
 find_package(OpenGL REQUIRED)
 
-add_library(engine SHARED src/Core/Application.cpp src/Core/Log.cpp src/Core/Window.cpp src/Platform/GlfwWindow.cpp src/Platform/Windows/WindowsPlatform.cpp src/Platform/Platform.cpp src/Events/EventManager.cpp src/Core/Layer.cpp src/Core/LayerStack.cpp src/Platform/GlfwInput.cpp src/ImGui/ImGuiLayer.cpp src/Platform/OpenGL/OpenGlContext.cpp)
+add_library(engine SHARED src/Core/Application.cpp src/Core/Log.cpp src/Core/Window.cpp src/Platform/GlfwWindow.cpp src/Platform/Windows/WindowsPlatform.cpp src/Platform/Platform.cpp src/Events/EventManager.cpp src/Core/Layer.cpp src/Core/LayerStack.cpp src/Platform/GlfwInput.cpp src/ImGui/ImGuiLayer.cpp src/Platform/OpenGL/OpenGlContext.cpp src/Rendering/Buffers.cpp src/Platform/OpenGL/OpenGlVertexBuffer.cpp src/Platform/OpenGL/OpenGlIndexBuffer.cpp)
 
 target_link_libraries(engine spdlog glfw glad imgui opengl32)
 target_include_directories(engine PUBLIC 3rd-party/spdlog/include 3rd-party/GLFW/include 3rd-party/glad/include 3rd-party/imgui 3rd-party/glm)
