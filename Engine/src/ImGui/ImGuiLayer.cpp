@@ -87,6 +87,17 @@ namespace engine {
         if (showWindow)
             ImGui::ShowDemoWindow(&showWindow);
 
+        //  TODO: remove
+        ImGui::Begin("Window");
+
+        ImGui::SliderFloat4("Background color", backgroundColor, 0, 1);
+
+        ImGui::End();
+
+        auto& renderer = Renderer::Get();
+        renderer.SetClearColor({backgroundColor[0], backgroundColor[1], backgroundColor[2], backgroundColor[3]});
+        renderer.Clear();
+
         // Rendering
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

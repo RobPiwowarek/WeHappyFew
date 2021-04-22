@@ -37,6 +37,9 @@ namespace engine {
         bool blockEvents = true;
         bool showWindow = true;
         float time = 0.0f;
+
+        //  TODO: Remove
+        float backgroundColor[4] = {0, 0, 0.4, 0};
     };
 
 }

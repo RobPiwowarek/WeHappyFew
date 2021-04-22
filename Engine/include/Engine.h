@@ -10,6 +10,8 @@
 #include "Core/Application.h"
 #include "Core/Layer.h"
 
+#include "Rendering/Renderer.h"
+
 #include "Events/Event.h"
 #include "Events/EventHandler.h"
 #include "Events/KeyEvents.h"
@@ -23,5 +25,8 @@
 #include "Core/Log.h"
 
 #include "../src/Core/EntryPoint.h"
+
+//  Hack
+#include <imgui.h>
 
 #endif //WEHAPPYFEW_ENGINE_H
